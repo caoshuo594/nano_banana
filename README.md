@@ -69,8 +69,10 @@ echo 'export OPENROUTER_API_KEY="sk-or-v1-your-key-here"' >> ~/.bashrc
     "nano-banana": {
       "command": "python",
       "args": [
-        "d:\\ai_coding\\Antigravity\\nano_banana\\mcp_server.py"
+        "-m",
+        "mcp_server"
       ],
+      "cwd": "/path/to/cloned/nano_banana",
       "env": {
         "OPENROUTER_API_KEY": "sk-or-v1-your-actual-key-here"
       }
@@ -78,6 +80,11 @@ echo 'export OPENROUTER_API_KEY="sk-or-v1-your-key-here"' >> ~/.bashrc
   }
 }
 ```
+
+**注意**：
+- 将 `/path/to/cloned/nano_banana` 替换为您克隆仓库的实际路径
+- Windows 示例：`"cwd": "C:\\Users\\YourName\\projects\\nano_banana"`
+- Mac/Linux 示例：`"cwd": "/home/username/projects/nano_banana"`
 
 ⚠️ **重要**: 请将 `sk-or-v1-your-actual-key-here` 替换为您的实际 OpenRouter API Key！
 

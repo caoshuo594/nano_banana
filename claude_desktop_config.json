@@ -3,9 +3,13 @@
     "nano-banana": {
       "command": "python",
       "args": [
-        "d:\\ai_coding\\Antigravity\\nano_banana\\mcp_server.py"
+        "-m",
+        "mcp_server"
       ],
-      "env": {}
+      "cwd": "/path/to/cloned/nano_banana",
+      "env": {
+        "OPENROUTER_API_KEY": "sk-or-v1-your-actual-key-here"
+      }
     }
   }
 }
