@@ -1,6 +1,6 @@
 # NanoBanana MCP Server
 
-一个封装 OpenRouter API 的 MCP (Model Context Protocol) 服务器，可供 Claude Desktop、Gemini CLI 等 MCP 客户端使用。
+一个封装 OpenRouter API 的 MCP (Model Context Protocol) 服务器，可供 Claude Code (VS Code)、Claude Desktop 等 MCP 客户端使用。
 
 ## 功能特性
 
@@ -12,18 +12,21 @@
 
 ## 📦 安装
 
-### 方式 1: 通过 uvx（推荐 - 最简单）
+### 方式 1: 通过 uvx（推荐）
 
 使用 `uvx` 直接从 GitHub 运行，无需克隆仓库：
 
 ```bash
 # 首先安装 uv（如果还没有）
 pip install uv
-
-# 然后在 Claude Desktop 配置中使用
 ```
 
-**Claude Desktop 配置**：
+#### 在 Claude Code (VS Code) 中配置
+
+1. 在 VS Code 中打开命令面板（`Ctrl+Shift+P` 或 `Cmd+Shift+P`）
+2. 搜索并选择 "Claude: Open MCP Settings"
+3. 添加以下配置：
+
 ```json
 {
   "mcpServers": {
@@ -38,6 +41,10 @@ pip install uv
 }
 ```
 
+#### 在 Claude Desktop 中配置
+
+编辑配置文件（位置见下方"配置说明"），添加相同配置。
+
 ### 方式 2: 克隆仓库（用于开发）
 
 ```bash
@@ -49,7 +56,8 @@ cd nano_banana
 pip install -r requirements.txt
 ```
 
-**Claude Desktop 配置**：
+#### 在 Claude Code (VS Code) 中配置
+
 ```json
 {
   "mcpServers": {
@@ -65,6 +73,10 @@ pip install -r requirements.txt
 }
 ```
 
+#### 在 Claude Desktop 中配置
+
+使用相同配置。
+
 ### 🔑 获取 OpenRouter API Key
 
 ⚠️ **必需步骤**:
@@ -79,7 +91,14 @@ pip install -r requirements.txt
 
 - **API URL**: https://openrouter.ai/api/v1
 - **默认模型**: google/gemini-3-pro-image-preview
-- 配置文件位置：
+
+**配置文件位置：**
+
+- **Claude Code (VS Code)**:
+  - 通过命令面板：`Claude: Open MCP Settings`
+  - 或编辑：`.vscode/mcp.json`（工作区级别）
+
+- **Claude Desktop**:
   - **Windows**: `%APPDATA%\Claude\claude_desktop_config.json`
   - **macOS**: `~/Library/Application Support/Claude/claude_desktop_config.json`
   - **Linux**: `~/.config/Claude/claude_desktop_config.json`
@@ -87,15 +106,30 @@ pip install -r requirements.txt
 ⚠️ **重要**: 
 - 将 `sk-or-v1-your-actual-key-here` 替换为您的实际 API Key
 - 如果使用方式 2，将 `/path/to/nano_banana` 替换为实际路径
-- 配置完成后重启 Claude Desktop
+- Claude Code: 保存配置后自动生效
+- Claude Desktop: 需要重启应用
 
 ## 🎨 使用方法
 
-### 在 Gemini CLI 中使用
+### 在 Claude Code (VS Code) 中使用
 
-如果 Gemini CLI 支持 MCP 协议，可以使用类似的配置方式。具体配置方法请参考 Gemini CLI 的文档。
+配置完成后，在 Claude Code 中直接描述您的需求：
 
-### 直接测试
+```
+帮我生成一张熊猫武士的图片
+```
+
+Claude 会自动：
+1. 理解您的需求
+2. 生成详细的提示词
+3. 调用 MCP 图像生成工具
+4. 返回 2 张高质量图片（base64 格式）
+
+### 在 Claude Desktop 中使用
+
+使用方式与 Claude Code 相同，直接用自然语言描述需求即可。
+
+### 直接测试（开发用）
 
 可以使用 MCP Inspector 进行测试：
 
