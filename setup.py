@@ -35,7 +35,7 @@ setup(
     install_requires=requirements,
     entry_points={
         "console_scripts": [
-            "nano-banana=mcp_server:main",
+            "nano-banana-mcp=mcp_server:main",
         ],
     },
 )
