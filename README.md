@@ -1,6 +1,6 @@
 # NanoBanana MCP Server
 
-一个封装 OpenRouter API 的 MCP (Model Context Protocol) 服务器，可供 Claude Code (VS Code)、Claude Desktop 等 MCP 客户端使用。
+一个封装 OpenRouter API 的 MCP (Model Context Protocol) 服务器，可供 Claude Code CLI、Claude Desktop 等 MCP 客户端使用。
 
 ## 功能特性
 
@@ -21,11 +21,9 @@
 pip install uv
 ```
 
-#### 在 Claude Code (VS Code) 中配置
+#### 在 Claude Code CLI 中配置
 
-1. 在 VS Code 中打开命令面板（`Ctrl+Shift+P` 或 `Cmd+Shift+P`）
-2. 搜索并选择 "Claude: Open MCP Settings"
-3. 添加以下配置：
+编辑 Claude Code 配置文件并添加：
 
 ```json
 {
@@ -43,7 +41,7 @@ pip install uv
 
 #### 在 Claude Desktop 中配置
 
-编辑配置文件（位置见下方"配置说明"），添加相同配置。
+使用相同的配置格式。
 
 ### 方式 2: 克隆仓库（用于开发）
 
@@ -56,7 +54,7 @@ cd nano_banana
 pip install -r requirements.txt
 ```
 
-#### 在 Claude Code (VS Code) 中配置
+#### 在 Claude Code CLI 中配置
 
 ```json
 {
@@ -75,7 +73,7 @@ pip install -r requirements.txt
 
 #### 在 Claude Desktop 中配置
 
-使用相同配置。
+使用相同的配置格式。
 
 ### 🔑 获取 OpenRouter API Key
 
@@ -94,9 +92,10 @@ pip install -r requirements.txt
 
 **配置文件位置：**
 
-- **Claude Code (VS Code)**:
-  - 通过命令面板：`Claude: Open MCP Settings`
-  - 或编辑：`.vscode/mcp.json`（工作区级别）
+- **Claude Code CLI**:
+  - **Windows**: `%APPDATA%\Claude Code\config.json`
+  - **macOS**: `~/Library/Application Support/Claude Code/config.json`
+  - **Linux**: `~/.config/claude-code/config.json`
 
 - **Claude Desktop**:
   - **Windows**: `%APPDATA%\Claude\claude_desktop_config.json`
@@ -106,16 +105,20 @@ pip install -r requirements.txt
 ⚠️ **重要**: 
 - 将 `sk-or-v1-your-actual-key-here` 替换为您的实际 API Key
 - 如果使用方式 2，将 `/path/to/nano_banana` 替换为实际路径
-- Claude Code: 保存配置后自动生效
-- Claude Desktop: 需要重启应用
+- 配置完成后重启 Claude Code CLI 或 Claude Desktop
 
 ## 🎨 使用方法
 
-### 在 Claude Code (VS Code) 中使用
+### 在 Claude Code CLI 中使用
 
-配置完成后，在 Claude Code 中直接描述您的需求：
+配置完成后，在终端中启动 Claude Code，直接描述您的需求：
 
-```
+```bash
+claude-code
+# 或
+claude code
+
+# 然后输入：
 帮我生成一张熊猫武士的图片
 ```
 
@@ -127,7 +130,7 @@ Claude 会自动：
 
 ### 在 Claude Desktop 中使用
 
-使用方式与 Claude Code 相同，直接用自然语言描述需求即可。
+使用方式与 Claude Code CLI 相同，直接用自然语言描述需求即可。
 
 ### 直接测试（开发用）
 
