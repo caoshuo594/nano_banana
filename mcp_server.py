@@ -21,15 +21,9 @@ from mcp.types import (
 
 # OpenRouter API 配置
 OPENROUTER_API_URL = "https://openrouter.ai/api/v1"
+# 不要在模块级别抛出异常，以免影响 MCP Server 启动
 OPENROUTER_API_KEY = os.getenv("OPENROUTER_API_KEY", "")
 DEFAULT_MODEL = "google/gemini-3-pro-image-preview"
-
-# 检查 API Key
-if not OPENROUTER_API_KEY:
-    raise ValueError(
-        "❌ 错误: OPENROUTER_API_KEY 环境变量未设置！\n"
-        "请设置环境变量: set OPENROUTER_API_KEY=your_api_key_here"
-    )
 
 # 创建 MCP 服务器实例
 app = Server("nano-banana")
@@ -274,6 +268,11 @@ async def list_models() -> list[TextContent]:
 
 async def main():
     """启动 MCP 服务器"""
+    if not OPENROUTER_API_KEY:
+        import sys
+        print("⚠️ 警告: OPENROUTER_API_KEY 环境变量未设置！MCP Server 将启动，但调用 API 会失败。", file=sys.stderr)
+        print("请在 MCP 客户端配置中设置环境变量: OPENROUTER_API_KEY", file=sys.stderr)
+
     async with stdio_server() as (read_stream, write_stream):
         await app.run(
             read_stream,
