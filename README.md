@@ -10,69 +10,26 @@
 - 📋 支持列出所有可用模型
 - 🖼️ 支持文本和图像输入
 
-## 安装
+## 📦 安装
 
-### 1. 获取 OpenRouter API Key
+### 方式 1: 通过 uvx（推荐 - 最简单）
 
-⚠️ **必需步骤**: 在使用此服务前，您必须先获取 OpenRouter API Key。
-
-1. 访问 [OpenRouter](https://openrouter.ai/)
-2. 注册/登录账号
-3. 在 [API Keys 页面](https://openrouter.ai/keys) 创建新的 API Key
-4. 复制您的 API Key（格式：`sk-or-v1-...`）
-
-### 2. 安装依赖
+使用 `uvx` 直接从 GitHub 运行，无需克隆仓库：
 
 ```bash
-pip install -r requirements.txt
+# 首先安装 uv（如果还没有）
+pip install uv
+
+# 然后在 Claude Desktop 配置中使用
 ```
 
-### 3. 配置 API Key
-
-**必须设置环境变量** `OPENROUTER_API_KEY`：
-
-#### Windows PowerShell
-```powershell
-# 临时设置（当前会话）
-$env:OPENROUTER_API_KEY="sk-or-v1-your-actual-key-here"
-
-# 永久设置
-[System.Environment]::SetEnvironmentVariable('OPENROUTER_API_KEY', 'sk-or-v1-your-key-here', 'User')
-```
-
-#### Linux/Mac
-```bash
-export OPENROUTER_API_KEY="sk-or-v1-your-actual-key-here"
-
-# 永久设置，添加到 ~/.bashrc 或 ~/.zshrc
-echo 'export OPENROUTER_API_KEY="sk-or-v1-your-key-here"' >> ~/.bashrc
-```
-
-**配置说明**：
-- **API URL**: https://openrouter.ai/api/v1
-- **默认模型**: google/gemini-3-pro-image-preview
-
-## 使用方法
-
-### 在 Claude Desktop 中使用
-
-1. 找到 Claude Desktop 的配置文件：
-   - **Windows**: `%APPDATA%\Claude\claude_desktop_config.json`
-   - **macOS**: `~/Library/Application Support/Claude/claude_desktop_config.json`
-   - **Linux**: `~/.config/Claude/claude_desktop_config.json`
-
-2. 将以下配置添加到 `mcpServers` 部分：
-
+**Claude Desktop 配置**：
 ```json
 {
   "mcpServers": {
     "nano-banana": {
-      "command": "python",
-      "args": [
-        "-m",
-        "mcp_server"
-      ],
-      "cwd": "/path/to/cloned/nano_banana",
+      "command": "uvx",
+      "args": ["nano-banana-mcp@git+https://github.com/caoshuo594/nano_banana.git"],
       "env": {
         "OPENROUTER_API_KEY": "sk-or-v1-your-actual-key-here"
       }
@@ -81,14 +38,58 @@ echo 'export OPENROUTER_API_KEY="sk-or-v1-your-key-here"' >> ~/.bashrc
 }
 ```
 
-**注意**：
-- 将 `/path/to/cloned/nano_banana` 替换为您克隆仓库的实际路径
-- Windows 示例：`"cwd": "C:\\Users\\YourName\\projects\\nano_banana"`
-- Mac/Linux 示例：`"cwd": "/home/username/projects/nano_banana"`
+### 方式 2: 克隆仓库（用于开发）
 
-⚠️ **重要**: 请将 `sk-or-v1-your-actual-key-here` 替换为您的实际 OpenRouter API Key！
+```bash
+# 1. 克隆仓库
+git clone https://github.com/caoshuo594/nano_banana.git
+cd nano_banana
 
-3. 重启 Claude Desktop
+# 2. 安装依赖
+pip install -r requirements.txt
+```
+
+**Claude Desktop 配置**：
+```json
+{
+  "mcpServers": {
+    "nano-banana": {
+      "command": "python",
+      "args": ["-m", "mcp_server"],
+      "cwd": "/path/to/nano_banana",
+      "env": {
+        "OPENROUTER_API_KEY": "sk-or-v1-your-actual-key-here"
+      }
+    }
+  }
+}
+```
+
+### 🔑 获取 OpenRouter API Key
+
+⚠️ **必需步骤**:
+
+1. 访问 [OpenRouter](https://openrouter.ai/)
+2. 注册/登录账号
+3. 在 [API Keys 页面](https://openrouter.ai/keys) 创建新的 API Key
+4. 复制您的 API Key（格式：`sk-or-v1-...`）
+5. 在 Claude Desktop 配置的 `env` 部分填入
+
+### 配置说明
+
+- **API URL**: https://openrouter.ai/api/v1
+- **默认模型**: google/gemini-3-pro-image-preview
+- 配置文件位置：
+  - **Windows**: `%APPDATA%\Claude\claude_desktop_config.json`
+  - **macOS**: `~/Library/Application Support/Claude/claude_desktop_config.json`
+  - **Linux**: `~/.config/Claude/claude_desktop_config.json`
+
+⚠️ **重要**: 
+- 将 `sk-or-v1-your-actual-key-here` 替换为您的实际 API Key
+- 如果使用方式 2，将 `/path/to/nano_banana` 替换为实际路径
+- 配置完成后重启 Claude Desktop
+
+## 🎨 使用方法
 
 ### 在 Gemini CLI 中使用
 

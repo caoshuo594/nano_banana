@@ -1,12 +1,10 @@
 {
   "mcpServers": {
     "nano-banana": {
-      "command": "python",
+      "command": "uvx",
       "args": [
-        "-m",
-        "mcp_server"
+        "nano-banana-mcp@git+https://github.com/caoshuo594/nano_banana.git"
       ],
-      "cwd": "/path/to/cloned/nano_banana",
       "env": {
         "OPENROUTER_API_KEY": "sk-or-v1-your-actual-key-here"
       }
